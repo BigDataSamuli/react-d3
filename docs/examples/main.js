@@ -5,6 +5,7 @@ var d3 = require('d3');
 var hljs = require("highlight.js");
 var rd3 = require('../../src');
 var BarChart = rd3.BarChart;
+var HorizontalBarChart = rd3.HorizontalBarChart;
 var LineChart = rd3.LineChart;
 var CandlestickChart = rd3.CandlestickChart;
 var PieChart = rd3.PieChart;
@@ -49,7 +50,7 @@ var Demos = React.createClass({
   render: function() {
 
     var lineData = [
-      { 
+      {
         name: 'series1',
         values: [ { x: 0, y: 20 }, { x: 1, y: 30 }, { x: 2, y: 10 }, { x: 3, y: 5 }, { x: 4, y: 8 }, { x: 5, y: 15 }, { x: 6, y: 10 } ],
         strokeWidth: 3,
@@ -62,7 +63,7 @@ var Demos = React.createClass({
       {
         name: 'series3',
         values: [ { x: 0, y: 0 }, { x: 1, y: 5 }, { x: 2, y: 8 }, { x: 3, y: 2 }, { x: 4, y: 6 }, { x: 5, y: 4 }, { x: 6, y: 2 } ]
-      } 
+      }
     ];
 
     var barData = [{label: 'AA', value: 5}, {label: 'B', value: 6}, {label: 'C', value: 2}, {label: 'D', value: 11}, {label: 'E', value: 2}, {label: 'F', value: 7}];
@@ -279,9 +280,9 @@ var Demos = React.createClass({
 `var ohlcData = [
   {
     name: "AAPL",
-    values: [ { x: [object Date], open: 451.69, high: 456.23, low: 435, close: 439.88 }, 
-              { x: [object Date], open: 437.82, high: 453.21, low: 435.86 , close: 449.83 }, 
-              ... 
+    values: [ { x: [object Date], open: 451.69, high: 456.23, low: 435, close: 439.88 },
+              { x: [object Date], open: 437.82, high: 453.21, low: 435.86 , close: 449.83 },
+              ...
             ]
   }
 ];`
@@ -341,6 +342,41 @@ var Demos = React.createClass({
         <div className="row">
           <hr/>
         </div>
+
+        <div className="row">
+          <div className="col-md-6">
+            <HorizontalBarChart data={barData} width={500} height={300} title="Horizontal Bar Chart" yAxisLabel="Label" xAxisLabel="Value"/>
+          </div>
+          <div className="col-md-6">
+            <pre ref='block'>
+              <code className='js'>
+              {`var barData = [
+  {label: 'A', value: 5},
+  {label: 'B', value: 6},
+  ...
+  {label: 'F', value: 7}
+];`}
+              </code>
+            </pre>
+            <pre ref='block'>
+              <code className='html'>
+                {`<HorizontalBarChart
+  data={barData}
+  width={500}
+  height={200}
+  fill={'#3182bd'}
+  title='Bar Chart'
+  yAxisLabel='Label'
+  xAxisLabel='Value'
+/>`}
+              </code>
+            </pre>
+          </div>
+        </div>
+        <div className="row">
+          <hr/>
+        </div>
+
         <div className="row">
           <div className="col-md-6">
             <PieChart data={pieData} width={450} height={400} radius={110} innerRadius={20} sectorBorderColor="white" title="Pie Chart" />
