@@ -2,7 +2,7 @@
 
 var React = require('react');
 var d3 = require('d3');
-var HorizontalDataSeries = require('./HorizontalDataSeries');
+var DataSeries = require('./DataSeries');
 
 var { Chart, XAxis, YAxis } = require('../common');
 var { CartesianChartPropsMixin } = require('../mixins');
@@ -11,7 +11,7 @@ module.exports = React.createClass({
 
   mixins: [ CartesianChartPropsMixin ],
 
-  displayName: 'HorizontalBarChart',
+  displayName: 'BarChart',
 
   propTypes: {
     data:           React.PropTypes.array,
@@ -97,7 +97,7 @@ module.exports = React.createClass({
         title={props.title}
       >
         <g transform={trans} className='rd3-barchart'>
-          <HorizontalDataSeries
+          <DataSeries
             values={values}
             labels={labels}
             yScale={yScale}

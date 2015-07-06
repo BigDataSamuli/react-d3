@@ -6,7 +6,7 @@ var BarContainer = require('./BarContainer');
 
 module.exports = React.createClass({
 
-  displayName: 'HorizontalDataSeries',
+  displayName: 'DataSeries',
 
   propTypes: {
     values:        React.PropTypes.array,
