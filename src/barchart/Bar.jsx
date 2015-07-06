@@ -21,15 +21,16 @@ module.exports = React.createClass({
   },
 
   render() {
-    return (
-      <rect
-        className='rd3-barchart-bar'
-        {...this.props}
-        fill={this.props.fill}
-        onClick={this.props.onClickHandler}
-        onMouseOver={this.props.handleMouseOver}
-        onMouseLeave={this.props.handleMouseLeave}
-      />
-    );
+      var BarComponent = this.props.customBarComponent || 'rect';
+
+      return (
+          <BarComponent
+              className='rd3-barchart-bar'
+              {...this.props}
+              fill={this.props.fill}
+              onMouseOver={this.props.handleMouseOver}
+              onMouseLeave={this.props.handleMouseLeave}
+          />
+      );
   }
 });

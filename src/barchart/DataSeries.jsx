@@ -59,8 +59,9 @@ module.exports = React.createClass({
           availableWidth={props.width}
           fill={props.colors(props.colorAccessor(item, idx))}
           key={idx}
+          data={item}
           hoverAnimation={props.hoverAnimation}
-          onClickHandler={onClickHandler}
+          customBarComponent={props.customBarComponent}
         />
       );
     });

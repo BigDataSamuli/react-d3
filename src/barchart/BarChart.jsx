@@ -24,7 +24,7 @@ module.exports = React.createClass({
     valueAxisMin:   React.PropTypes.number,
     valueAxisMax:   React.PropTypes.number,
     valueAccessor:  React.PropTypes.func,
-    onClickHandler: React.PropTypes.func
+    customBarComponent: React.PropTypes.func
   },
 
   getDefaultProps() {
@@ -118,7 +118,7 @@ module.exports = React.createClass({
             colorAccessor={props.colorAccessor}
             valueAccessor={props.valueAccessor}
             hoverAnimation={props.hoverAnimation}
-            onClickHandler={props.onClickHandler}
+            customBarComponent={props.customBarComponent}
           />
           <YAxis
             yAxisClassName='rd3-barchart-yaxis'

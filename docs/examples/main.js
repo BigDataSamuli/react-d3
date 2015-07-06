@@ -74,6 +74,17 @@ var Demos = React.createClass({
         {label: 'F', value: 7, highlight: false}
     ];
 
+    var customBarComponent = React.createClass({
+        render: function () {
+            return (
+                <rect
+                    {...this.props}
+                    data={undefined}
+                    onClick={() => window.location = "http://www.google.com" } />
+            );
+        }
+    });
+
     var pieData = [{label: "Margarita", value: 20.0}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
 
     // 2014 Most Populous Countries
@@ -361,6 +372,7 @@ var Demos = React.createClass({
                 title="Horizontal Bar Chart"
                 yAxisLabel="Label"
                 xAxisLabel="Value"
+                customBarComponent={customBarComponent}
                 colorAccessor={item => item.highlight ? 4 : 0}
                 onClickHandler={item => alert(JSON.stringify(item))}/>
           </div>
