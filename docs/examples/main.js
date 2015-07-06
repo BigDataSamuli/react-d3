@@ -65,7 +65,15 @@ var Demos = React.createClass({
       }
     ];
 
-    var barData = [{label: 'AA', value: 5}, {label: 'B', value: 6}, {label: 'C', value: 2}, {label: 'D', value: 11}, {label: 'E', value: 2}, {label: 'F', value: 7}];
+    var barData = [
+        {label: 'AA', value: 5, highlight: false},
+        {label: 'B', value: 6, highlight: false},
+        {label: 'C', value: 2, highlight: true},
+        {label: 'D', value: 11, highlight: false},
+        {label: 'E', value: 2, highlight: false},
+        {label: 'F', value: 7, highlight: false}
+    ];
+
     var pieData = [{label: "Margarita", value: 20.0}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
 
     // 2014 Most Populous Countries
@@ -349,10 +357,12 @@ var Demos = React.createClass({
                 width={500}
                 height={300}
                 horizontal={true}
+                valueScaleMax={20}
                 title="Horizontal Bar Chart"
                 yAxisLabel="Label"
                 xAxisLabel="Value"
-                onClickHandler={function (item) { alert(JSON.stringify(item)); }}/>
+                colorAccessor={item => item.highlight ? 4 : 0}
+                onClickHandler={item => alert(JSON.stringify(item))}/>
           </div>
           <div className="col-md-6">
             <pre ref='block'>

@@ -21,6 +21,8 @@ module.exports = React.createClass({
     title:          React.PropTypes.string,
     horizontal:     React.PropTypes.bool,
     hoverAnimation: React.PropTypes.bool,
+    valueAxisMin:   React.PropTypes.number,
+    valueAxisMax:   React.PropTypes.number,
     valueAccessor:  React.PropTypes.func,
     onClickHandler: React.PropTypes.func
   },
@@ -49,13 +51,14 @@ module.exports = React.createClass({
     var sideMargins = margins.left + margins.right;
     var topBottomMargins = margins.top + margins.bottom;
 
-    var minValue = Math.min(d3.min(values), 0);
+    var minValue = props.valueScaleMin !== undefined ? props.valueScaleMin : Math.min(d3.min(values), 0);
+    var maxValue = props.valueScaleMax !== undefined ? props.valueScaleMax : Math.max(d3.max(values), 0);
 
     var valueScaleRange = props.horizontal ? [0, props.width - sideMargins] : [props.height - topBottomMargins, 0];
     var labelScaleRange = props.horizontal ? [0, props.height - topBottomMargins] : [0, props.width - sideMargins];
 
     var valueScale = d3.scale.linear()
-      .domain([minValue, d3.max(values)])
+      .domain([minValue, maxValue])
       .range(valueScaleRange);
 
     var labelScale = d3.scale.ordinal()
