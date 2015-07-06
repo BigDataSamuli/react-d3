@@ -1,5 +1,4 @@
 exports.BarChart = require('./barchart').BarChart;
-exports.HorizontalBarChart = require('./barchart').HorizontalBarChart;
 exports.LineChart = require('./linechart').LineChart;
 exports.PieChart = require('./piechart').PieChart;
 exports.AreaChart = require('./areachart').AreaChart;

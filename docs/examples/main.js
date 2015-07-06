@@ -5,7 +5,6 @@ var d3 = require('d3');
 var hljs = require("highlight.js");
 var rd3 = require('../../src');
 var BarChart = rd3.BarChart;
-var HorizontalBarChart = rd3.HorizontalBarChart;
 var LineChart = rd3.LineChart;
 var CandlestickChart = rd3.CandlestickChart;
 var PieChart = rd3.PieChart;
@@ -345,7 +344,15 @@ var Demos = React.createClass({
 
         <div className="row">
           <div className="col-md-6">
-            <HorizontalBarChart data={barData} width={500} height={300} title="Horizontal Bar Chart" yAxisLabel="Label" xAxisLabel="Value"/>
+            <BarChart
+                data={barData}
+                width={500}
+                height={300}
+                horizontal={true}
+                title="Horizontal Bar Chart"
+                yAxisLabel="Label"
+                xAxisLabel="Value"
+                onClickHandler={function (item) { alert(JSON.stringify(item)); }}/>
           </div>
           <div className="col-md-6">
             <pre ref='block'>

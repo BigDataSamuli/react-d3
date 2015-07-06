@@ -2,7 +2,7 @@
 
 var React = require('react');
 var d3 = require('d3');
-var HorizontalDataSeries = require('./HorizontalDataSeries');
+var DataSeries = require('./DataSeries');
 
 var { Chart, XAxis, YAxis } = require('../common');
 var { CartesianChartPropsMixin } = require('../mixins');
@@ -11,28 +11,23 @@ module.exports = React.createClass({
 
   mixins: [ CartesianChartPropsMixin ],
 
-  displayName: 'HorizontalBarChart',
+  displayName: 'BarChart',
 
   propTypes: {
     data:           React.PropTypes.array,
+    yAxisTickCount: React.PropTypes.number,
     width:          React.PropTypes.number,
     margins:        React.PropTypes.object,
     height:         React.PropTypes.number,
     title:          React.PropTypes.string,
-    horizontal:     React.PropTypes.bool,
-    hoverAnimation: React.PropTypes.bool,
-    valueAccessor:  React.PropTypes.func,
-    onClickHandler: React.PropTypes.func
+    hoverAnimation: React.PropTypes.bool
   },
 
   getDefaultProps() {
     return {
-      xAxisTickCount: 4,
       yAxisTickCount: 4,
       margins: {top: 10, right: 20, bottom: 40, left: 45},
-      horizontal: false,
-      hoverAnimation: true,
-      valueAccessor: (item) => item.value
+      hoverAnimation: true
     };
   },
 
@@ -40,7 +35,7 @@ module.exports = React.createClass({
 
     var props = this.props;
 
-    var values = props.data.map(props.valueAccessor);
+    var values = props.data.map( (item) => item.value );
 
     var labels = props.data.map( (item) => item.label );
 
@@ -51,36 +46,13 @@ module.exports = React.createClass({
 
     var minValue = Math.min(d3.min(values), 0);
 
-    var valueScaleRange = props.horizontal ? [0, props.width - sideMargins] : [props.height - topBottomMargins, 0];
-    var labelScaleRange = props.horizontal ? [0, props.height - topBottomMargins] : [0, props.width - sideMargins];
-
-    var valueScale = d3.scale.linear()
+    var yScale = d3.scale.linear()
       .domain([minValue, d3.max(values)])
-      .range(valueScaleRange);
+      .range([props.height - topBottomMargins, 0]);
 
-    var labelScale = d3.scale.ordinal()
+    var xScale = d3.scale.ordinal()
         .domain(labels)
-        .rangeRoundBands(labelScaleRange, 0.1);
-
-    var xScale, yScale;
-    if (props.horizontal) {
-        xScale = valueScale;
-        yScale = labelScale;
-    } else {
-        xScale = labelScale;
-        yScale = valueScale;
-    }
-
-    var valueAxisStroke = '#000';
-    var valueAxisStrokeWidth = '1';
-    var labelAxisStroke = 'none';
-    var labelAxisStrokeWidth = 'none';
-
-    var xAxisStroke = props.horizontal ? valueAxisStroke : labelAxisStroke;
-    var xAxisStrokeWidth = props.horizontal ? valueAxisStrokeWidth : labelAxisStrokeWidth;
-
-    var yAxisStroke = props.horizontal ? labelAxisStroke : valueAxisStroke;
-    var yAxisStrokeWidth = props.horizontal ? labelAxisStrokeWidth : valueAxisStrokeWidth;
+        .rangeRoundBands([0, props.width - sideMargins], 0.1);
 
     var trans = `translate(${ margins.left },${ margins.top })`;
 
@@ -97,25 +69,18 @@ module.exports = React.createClass({
         title={props.title}
       >
         <g transform={trans} className='rd3-barchart'>
-          <HorizontalDataSeries
+          <DataSeries
             values={values}
             labels={labels}
             yScale={yScale}
-            xScale={xScale}
-            valueScale={valueScale}
-            valueScaleRange={valueScaleRange}
-            labelScale={labelScale}
-            labelScaleRange={labelScaleRange}
-            horizontal={props.horizontal}
+            xScale={yScale}
             margins={margins}
             data={props.data}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
             colors={props.colors}
             colorAccessor={props.colorAccessor}
-            valueAccessor={props.valueAccessor}
             hoverAnimation={props.hoverAnimation}
-            onClickHandler={props.onClickHandler}
           />
           <YAxis
             yAxisClassName='rd3-barchart-yaxis'
@@ -123,14 +88,11 @@ module.exports = React.createClass({
             yAxisLabel={props.yAxisLabel}
             yAxisLabelOffset={props.yAxisLabelOffset}
             yScale={yScale}
-            data={props.data}
-            yAxisTickCount={props.yAxisTickCount}
             margins={margins}
+            yAxisTickCount={props.yAxisTickCount}
             tickFormatting={props.yAxisFormatter}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
-            stroke={yAxisStroke}
-            strokeWidth={yAxisStrokeWidth}
           />
           <XAxis
             xAxisClassName='rd3-barchart-xaxis'
@@ -140,12 +102,9 @@ module.exports = React.createClass({
             xScale={xScale}
             data={props.data}
             margins={margins}
-            xAxisTickCount={props.xAxisTickCount}
             tickFormatting={props.xAxisFormatter}
             width={props.width - sideMargins}
             height={props.height - topBottomMargins}
-            stroke={xAxisStroke}
-            strokeWidth={xAxisStrokeWidth}
           />
         </g>
       </Chart>
