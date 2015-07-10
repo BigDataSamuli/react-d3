@@ -25,27 +25,42 @@ module.exports = React.createClass({
   },
 
   render() {
-
     var props = this.props;
 
-    return (
-      <Bar
-        {...props}
-        fill={this.state.fill}
-        handleMouseOver={props.hoverAnimation ? this._animateBar : null}
-        handleMouseLeave={props.hoverAnimation ? this._restoreBar : null}
-      />
-    );
+    var mouseOverHandler = props.hoverAnimation ? this._animateBar : null;
+    var mouseLeaveHandler = props.hoverAnimation ? this._restoreBar : null;
+
+    if (props.customBarComponent) {
+        return (
+            <props.customBarComponent
+                {...props}
+                fill={this.state.fill}
+                handleMouseOver={mouseOverHandler}
+                handleMouseLeave={mouseLeaveHandler}
+            />
+        );
+    } else {
+
+        return (
+          <Bar
+            {...props}
+            fill={this.state.fill}
+            handleMouseOver={mouseOverHandler}
+            handleMouseLeave={mouseLeaveHandler}
+            data={undefined}
+          />
+        );
+    }
   },
 
   _animateBar() {
-    this.setState({ 
+    this.setState({
       fill: shade(this.props.fill, 0.2)
     });
   },
 
   _restoreBar() {
-    this.setState({ 
+    this.setState({
       fill: this.props.fill
     });
   },

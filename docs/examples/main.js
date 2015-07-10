@@ -14,6 +14,36 @@ var ScatterChart= rd3.ScatterChart;
 
 hljs.initHighlightingOnLoad();
 
+var CustomBarComponent = React.createClass({
+
+  propTypes: {
+    fill: React.PropTypes.string,
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    x: React.PropTypes.number,
+    y: React.PropTypes.number,
+    className: React.PropTypes.string
+  },
+
+  getDefaultProps() {
+    return {
+      offset: 0,
+      className: 'rd3-barchart-bar'
+    };
+  },
+
+    render() {
+        return (
+            <rect
+                {...this.props}
+                data={undefined}
+                onMouseOver={this.props.handleMouseOver}
+                onMouseLeave={this.props.handleMouseLeave}
+                onClick={() => window.location = "http://www.google.com" } />
+        );
+    }
+});
+
 var Demos = React.createClass({
 
   getInitialState: function() {
@@ -73,17 +103,6 @@ var Demos = React.createClass({
         {label: 'E', value: 2, highlight: false},
         {label: 'F', value: 7, highlight: false}
     ];
-
-    var customBarComponent = React.createClass({
-        render: function () {
-            return (
-                <rect
-                    {...this.props}
-                    data={undefined}
-                    onClick={() => window.location = "http://www.google.com" } />
-            );
-        }
-    });
 
     var pieData = [{label: "Margarita", value: 20.0}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
 
@@ -372,9 +391,9 @@ var Demos = React.createClass({
                 title="Horizontal Bar Chart"
                 yAxisLabel="Label"
                 xAxisLabel="Value"
-                customBarComponent={customBarComponent}
+                customBarComponent={CustomBarComponent}
                 colorAccessor={item => item.highlight ? 4 : 0}
-                onClickHandler={item => alert(JSON.stringify(item))}/>
+                hoverAnimation={false} />
           </div>
           <div className="col-md-6">
             <pre ref='block'>
