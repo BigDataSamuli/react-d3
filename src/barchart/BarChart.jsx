@@ -24,7 +24,8 @@ module.exports = React.createClass({
     valueAxisMin:   React.PropTypes.number,
     valueAxisMax:   React.PropTypes.number,
     valueAccessor:  React.PropTypes.func,
-    customBarComponent: React.PropTypes.func
+    customBarComponent: React.PropTypes.func,
+    renderCustomChartArea: React.PropTypes.func
   },
 
   getDefaultProps() {
@@ -54,8 +55,11 @@ module.exports = React.createClass({
     var minValue = props.valueScaleMin !== undefined ? props.valueScaleMin : Math.min(d3.min(values), 0);
     var maxValue = props.valueScaleMax !== undefined ? props.valueScaleMax : Math.max(d3.max(values), 0);
 
-    var valueScaleRange = props.horizontal ? [0, props.width - sideMargins] : [props.height - topBottomMargins, 0];
-    var labelScaleRange = props.horizontal ? [0, props.height - topBottomMargins] : [0, props.width - sideMargins];
+    var areaWidth = props.width - sideMargins;
+    var areaHeight = props.height - topBottomMargins;
+
+    var valueScaleRange = props.horizontal ? [0, areaWidth] : [areaHeight, 0];
+    var labelScaleRange = props.horizontal ? [0, areaHeight] : [0, areaWidth];
 
     var valueScale = d3.scale.linear()
       .domain([minValue, maxValue])
@@ -100,6 +104,9 @@ module.exports = React.createClass({
         title={props.title}
       >
         <g transform={trans} className='rd3-barchart'>
+          {this.props.renderCustomChartArea ?
+            this.props.renderCustomChartArea(areaWidth, xScale, areaHeight, yScale) :
+            null}
           <DataSeries
             values={values}
             labels={labels}

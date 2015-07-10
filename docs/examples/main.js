@@ -44,6 +44,18 @@ var CustomBarComponent = React.createClass({
     }
 });
 
+function renderCustomChartArea(areaWidth, xScale, areaHeight, yScale) {
+    return (
+        <line
+            stroke="#f55"
+            strokeWidth={2}
+            x1={xScale(7)}
+            y1={0}
+            x2={xScale(7)}
+            y2={areaHeight} />
+    );
+}
+
 var Demos = React.createClass({
 
   getInitialState: function() {
@@ -392,6 +404,7 @@ var Demos = React.createClass({
                 yAxisLabel="Label"
                 xAxisLabel="Value"
                 customBarComponent={CustomBarComponent}
+                renderCustomChartArea={renderCustomChartArea}
                 colorAccessor={item => item.highlight ? 4 : 0}
                 hoverAnimation={false} />
           </div>
