@@ -67,7 +67,7 @@ module.exports = React.createClass({
 
     var labelScale = d3.scale.ordinal()
         .domain(labels)
-        .rangeRoundBands(labelScaleRange, 0.1);
+        .rangeBands(labelScaleRange, 0.1);
 
     var xScale, yScale;
     if (props.horizontal) {

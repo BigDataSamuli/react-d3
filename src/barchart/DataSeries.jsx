@@ -34,7 +34,7 @@ module.exports = React.createClass({
 
     var labelScale = d3.scale.ordinal()
       .domain(d3.range(props.values.length))
-      .rangeRoundBands(props.labelScaleRange, props.padding);
+      .rangeBands(props.labelScaleRange, props.padding);
 
     var bars = props.data.map((item, idx) => {
       var point = props.valueAccessor(item);
