@@ -27,7 +27,6 @@ module.exports = React.createClass({
     secondaryValueAxisLabel: React.PropTypes.string,
     secondaryValueAxisLabelOffset: React.PropTypes.number,
     secondaryValueAccessor: React.PropTypes.func,
-    secondaryValueTickValues: React.PropTypes.string,
     customBarComponent: React.PropTypes.func,
     renderCustomChartArea: React.PropTypes.func
   },
@@ -107,7 +106,6 @@ module.exports = React.createClass({
                 yAxisClassName='rd3-barchart-yaxis'
                 yAxisLabel={props.secondaryValueAxisLabel}
                 yAxisLabelOffset={props.secondaryValueAxisLabelOffset}
-                yTickValues={props.secondaryValueTickValues}
                 yScale={secondaryValueScale}
                 data={props.data}
                 margins={margins}
@@ -126,7 +124,6 @@ module.exports = React.createClass({
                 xAxisClassName='rd3-barchart-xaxis'
                 xAxisLabel={props.secondaryValueAxisLabel}
                 xAxisLabelOffset={props.secondaryValueAxisLabelOffset}
-                xTickValues={props.secondaryValueTickValues}
                 xScale={secondaryValueScale}
                 data={props.data}
                 margins={margins}
