@@ -26,7 +26,7 @@ module.exports = React.createClass({
     valueAccessor:  React.PropTypes.func,
     secondaryValueAxisLabel: React.PropTypes.string,
     secondaryValueAxisLabelOffset: React.PropTypes.number,
-    secondaryValueAccessor: React.PropTypes.func,
+    secondaryValueTickValues: React.PropTypes.string,
     customBarComponent: React.PropTypes.func,
     renderCustomChartArea: React.PropTypes.func
   },
@@ -38,8 +38,7 @@ module.exports = React.createClass({
       margins: {top: 10, right: 20, bottom: 40, left: 45},
       horizontal: false,
       hoverAnimation: true,
-      valueAccessor: item => item.value,
-      secondaryValueAccessor: item => item.secondaryValue
+      valueAccessor: item => item.value
     };
   },
 
@@ -49,7 +48,6 @@ module.exports = React.createClass({
 
     var values = props.data.map(props.valueAccessor);
     var labels = props.data.map(item => item.label);
-    var secondaryValues = props.data.map(props.secondaryValueAccessor);
 
     var margins = props.margins;
 
@@ -71,10 +69,6 @@ module.exports = React.createClass({
 
     var labelScale = d3.scale.ordinal()
         .domain(labels)
-        .rangeBands(labelScaleRange, 0.1);
-
-    var secondaryValueScale = d3.scale.ordinal()
-        .domain(secondaryValues)
         .rangeBands(labelScaleRange, 0.1);
 
     var xScale, yScale;
@@ -106,7 +100,8 @@ module.exports = React.createClass({
                 yAxisClassName='rd3-barchart-yaxis'
                 yAxisLabel={props.secondaryValueAxisLabel}
                 yAxisLabelOffset={props.secondaryValueAxisLabelOffset}
-                yScale={secondaryValueScale}
+                yTickValues={props.secondaryValueTickValues}
+                yScale={labelScale}
                 data={props.data}
                 margins={margins}
                 width={props.width - sideMargins}
@@ -121,9 +116,10 @@ module.exports = React.createClass({
         secondaryValueAxis = (
             <XAxis
                 xAxisClassName='rd3-barchart-xaxis'
-                xAxisLabel={props.xAxisLabel}
+                xAxisLabel={props.secondaryValueAxisLabel}
                 xAxisLabelOffset={props.secondaryValueAxisLabelOffset}
-                xScale={secondaryValueScale}
+                xTickValues={props.secondaryValueTickValues}
+                xScale={labelScale}
                 data={props.data}
                 margins={margins}
                 width={props.width - sideMargins}
