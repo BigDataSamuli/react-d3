@@ -38,7 +38,7 @@ module.exports = React.createClass({
       margins: {top: 10, right: 20, bottom: 40, left: 45},
       horizontal: false,
       hoverAnimation: true,
-      valueAccessor: item => item.value
+      valueAccessor: item => item.value,
       secondaryValueAccessor: item => item.secondaryValue
     };
   },
