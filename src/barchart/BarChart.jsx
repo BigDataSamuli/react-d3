@@ -100,7 +100,7 @@ module.exports = React.createClass({
     var trans = `translate(${ margins.left },${ margins.top })`;
 
     var secondaryValueAxis;
-    if (secondaryValues) {
+    if (props.secondaryValueAxisLabel) {
         secondaryValueAxis = (
             <YAxis
                 yAxisClassName='rd3-barchart-yaxis'
