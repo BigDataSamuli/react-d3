@@ -19,3 +19,7 @@ build/
 
 # OSX
 .DS_Store
+
+# Custom
+*.njsproj
+dist/
