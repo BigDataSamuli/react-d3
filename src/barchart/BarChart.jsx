@@ -25,6 +25,8 @@ module.exports = React.createClass({
     valueAxisMax:   React.PropTypes.number,
     valueAccessor:  React.PropTypes.func,
     secondaryValueAxisLabel: React.PropTypes.string,
+    secondaryValueAxisLabelOffset: React.PropTypes.number,
+    secondaryValueAccessor: React.PropTypes.func,
     customBarComponent: React.PropTypes.func,
     renderCustomChartArea: React.PropTypes.func
   },
@@ -36,7 +38,8 @@ module.exports = React.createClass({
       margins: {top: 10, right: 20, bottom: 40, left: 45},
       horizontal: false,
       hoverAnimation: true,
-      valueAccessor: (item) => item.value
+      valueAccessor: item => item.value
+      secondaryValueAccessor: item => item.secondaryValue
     };
   },
 
@@ -46,7 +49,7 @@ module.exports = React.createClass({
 
     var values = props.data.map(props.valueAccessor);
     var labels = props.data.map(item => item.label);
-    var secondaryValues = props.data.map(item => item.secondaryValue);
+    var secondaryValues = props.data.map(props.secondaryValueAccessor);
 
     var margins = props.margins;
 
