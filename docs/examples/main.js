@@ -108,12 +108,12 @@ var Demos = React.createClass({
     ];
 
     var barData = [
-        {label: 'AA', value: 5, highlight: false},
-        {label: 'B', value: 6, highlight: false},
-        {label: 'C', value: 2, highlight: true},
-        {label: 'D', value: 11, highlight: false},
-        {label: 'E', value: 2, highlight: false},
-        {label: 'F', value: 7, highlight: false}
+        {label: 'AA', value: 5, secondaryValue: 100, highlight: false},
+        {label: 'B', value: 6, secondaryValue: 50, highlight: false},
+        {label: 'C', value: 2, secondaryValue: 67, highlight: true},
+        {label: 'D', value: 11, secondaryValue: 38, highlight: false},
+        {label: 'E', value: 2, secondaryValue: 90, highlight: false},
+        {label: 'F', value: 7, secondaryValue: 80, highlight: false}
     ];
 
     var pieData = [{label: "Margarita", value: 20.0}, {label: "John", value: 55.0}, {label: "Tim", value: 25.0 }];
@@ -399,6 +399,9 @@ var Demos = React.createClass({
                 width={500}
                 height={300}
                 horizontal={true}
+                margins={{top: 10, right: 50, bottom: 40, left: 45}}
+                secondaryValueAxisLabel="Sec. Value"
+                secondaryValueAxisLabelOffset={50}
                 valueScaleMax={20}
                 title="Horizontal Bar Chart"
                 yAxisLabel="Label"

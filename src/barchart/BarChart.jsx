@@ -24,6 +24,7 @@ module.exports = React.createClass({
     valueAxisMin:   React.PropTypes.number,
     valueAxisMax:   React.PropTypes.number,
     valueAccessor:  React.PropTypes.func,
+    secondaryValueAxisLabel: React.PropTypes.string,
     customBarComponent: React.PropTypes.func,
     renderCustomChartArea: React.PropTypes.func
   },
@@ -44,8 +45,8 @@ module.exports = React.createClass({
     var props = this.props;
 
     var values = props.data.map(props.valueAccessor);
-
-    var labels = props.data.map( (item) => item.label );
+    var labels = props.data.map(item => item.label);
+    var secondaryValues = props.data.map(item => item.secondaryValue);
 
     var margins = props.margins;
 
@@ -69,6 +70,10 @@ module.exports = React.createClass({
         .domain(labels)
         .rangeBands(labelScaleRange, 0.1);
 
+    var secondaryValueScale = d3.scale.ordinal()
+        .domain(secondaryValues)
+        .rangeBands(labelScaleRange, 0.1);
+
     var xScale, yScale;
     if (props.horizontal) {
         xScale = valueScale;
@@ -90,6 +95,45 @@ module.exports = React.createClass({
     var yAxisStrokeWidth = props.horizontal ? labelAxisStrokeWidth : valueAxisStrokeWidth;
 
     var trans = `translate(${ margins.left },${ margins.top })`;
+
+    var secondaryValueAxis;
+    if (secondaryValues) {
+        secondaryValueAxis = (
+            <YAxis
+                yAxisClassName='rd3-barchart-yaxis'
+                yAxisLabel={props.secondaryValueAxisLabel}
+                yAxisLabelOffset={props.secondaryValueAxisLabelOffset}
+                yScale={secondaryValueScale}
+                data={props.data}
+                margins={margins}
+                tickFormatting={props.yAxisFormatter}
+                width={props.width - sideMargins}
+                height={props.height - topBottomMargins}
+                stroke={yAxisStroke}
+                strokeWidth={yAxisStrokeWidth}
+                yOrient='right'
+                tickStroke='none'
+            />
+        );
+    } else {
+        secondaryValueAxis = (
+            <XAxis
+                xAxisClassName='rd3-barchart-xaxis'
+                xAxisLabel={props.xAxisLabel}
+                xAxisLabelOffset={props.secondaryValueAxisLabelOffset}
+                xScale={secondaryValueScale}
+                data={props.data}
+                margins={margins}
+                tickFormatting={props.xAxisFormatter}
+                width={props.width - sideMargins}
+                height={props.height - topBottomMargins}
+                stroke={xAxisStroke}
+                strokeWidth={xAxisStrokeWidth}
+                xOrient='top'
+                tickStroke='none'
+            />
+        );
+    };
 
     return (
       <Chart
@@ -157,6 +201,7 @@ module.exports = React.createClass({
             stroke={xAxisStroke}
             strokeWidth={xAxisStrokeWidth}
           />
+        {secondaryValueAxis}
         </g>
       </Chart>
     );
