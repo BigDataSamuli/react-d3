@@ -26,6 +26,7 @@ module.exports = React.createClass({
     valueAccessor:  React.PropTypes.func,
     secondaryValueAxisLabel: React.PropTypes.string,
     secondaryValueAxisLabelOffset: React.PropTypes.number,
+    secondaryValueAccessor: React.PropTypes.func,
     secondaryValueTickValues: React.PropTypes.string,
     customBarComponent: React.PropTypes.func,
     renderCustomChartArea: React.PropTypes.func
@@ -38,7 +39,8 @@ module.exports = React.createClass({
       margins: {top: 10, right: 20, bottom: 40, left: 45},
       horizontal: false,
       hoverAnimation: true,
-      valueAccessor: item => item.value
+      valueAccessor: item => item.value,
+      secondaryValueAccessor: item => item.secondaryValue
     };
   },
 
@@ -48,6 +50,7 @@ module.exports = React.createClass({
 
     var values = props.data.map(props.valueAccessor);
     var labels = props.data.map(item => item.label);
+    var secondaryValues = props.data.map(props.secondaryValueAccessor);
 
     var margins = props.margins;
 
@@ -69,6 +72,10 @@ module.exports = React.createClass({
 
     var labelScale = d3.scale.ordinal()
         .domain(labels)
+        .rangeBands(labelScaleRange, 0.1);
+
+    var secondaryValueScale = d3.scale.ordinal()
+        .domain(secondaryValues)
         .rangeBands(labelScaleRange, 0.1);
 
     var xScale, yScale;
@@ -101,11 +108,12 @@ module.exports = React.createClass({
                 yAxisLabel={props.secondaryValueAxisLabel}
                 yAxisLabelOffset={props.secondaryValueAxisLabelOffset}
                 yTickValues={props.secondaryValueTickValues}
-                yScale={labelScale}
+                yScale={secondaryValueScale}
                 data={props.data}
                 margins={margins}
                 width={props.width - sideMargins}
                 height={props.height - topBottomMargins}
+                tickFormatting={props.yAxisFormatter}
                 stroke={yAxisStroke}
                 strokeWidth={yAxisStrokeWidth}
                 yOrient='right'
@@ -119,11 +127,12 @@ module.exports = React.createClass({
                 xAxisLabel={props.secondaryValueAxisLabel}
                 xAxisLabelOffset={props.secondaryValueAxisLabelOffset}
                 xTickValues={props.secondaryValueTickValues}
-                xScale={labelScale}
+                xScale={secondaryValueScale}
                 data={props.data}
                 margins={margins}
                 width={props.width - sideMargins}
                 height={props.height - topBottomMargins}
+                tickFormatting={props.xAxisFormatter}
                 stroke={xAxisStroke}
                 strokeWidth={xAxisStrokeWidth}
                 xOrient='top'
