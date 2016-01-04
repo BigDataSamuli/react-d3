@@ -93,6 +93,7 @@ module.exports = React.createClass({
               xAxisLabelOffset={props.xAxisLabelOffset}
               xAxisOffset={props.xAxisOffset}
               xAxisTickInterval={props.xAxisTickInterval}
+              xAxisTickCount={props.xAxisTickCount}
               xAxisTickValues={props.xAxisTickValues}
               xOrient={props.xOrient}
               yOrient={yOrient}

@@ -96,6 +96,7 @@ module.exports = React.createClass({
             xAxisClassName={props.xAxisClassName}
             xScale={scales.xScale}
             xAxisTickValues={props.xAxisTickValues}
+            xAxisTickCount={props.xAxisTickCount}
             xAxisTickInterval={props.xAxisTickInterval}
             xAxisOffset={props.xAxisOffset}
             tickFormatting={props.xAxisFormatter}
