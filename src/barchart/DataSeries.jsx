@@ -43,6 +43,9 @@ module.exports = React.createClass({
         y={(segment.y >= 0) ? y : y - barHeight}
         fill={colors(colorAccessor(segment, seriesIdx))}
         hoverAnimation={hoverAnimation}
+        onMouseOver={this.props.onMouseOver}
+        onMouseLeave={this.props.onMouseLeave}
+        dataPoint={{xValue: segment.x, yValue: segment.y}}
       />
     )
   }
