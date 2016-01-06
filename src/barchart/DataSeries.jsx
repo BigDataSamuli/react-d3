@@ -10,6 +10,7 @@ module.exports = React.createClass({
 
   propTypes: {
     _data:          React.PropTypes.array,
+    series:   React.PropTypes.array,
     colors:         React.PropTypes.func,
     colorAccessor:  React.PropTypes.func,
     height:         React.PropTypes.number,
@@ -45,7 +46,7 @@ module.exports = React.createClass({
         hoverAnimation={hoverAnimation}
         onMouseOver={this.props.onMouseOver}
         onMouseLeave={this.props.onMouseLeave}
-        dataPoint={{xValue: segment.x, yValue: segment.y}}
+        dataPoint={{xValue: segment.x, yValue: segment.y, seriesName: this.props.series[seriesIdx]}}
       />
     )
   }
