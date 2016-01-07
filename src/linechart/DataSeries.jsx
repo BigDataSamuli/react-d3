@@ -75,15 +75,15 @@ module.exports = React.createClass({
     var cx, cy, circleFill;
     var regions = voronoi(props.value).map(function(vnode, idx) {
       var point = vnode.point.coord;
-      if (Object.prototype.toString.call(xAccessor(point)) === '[object Date]') {
-        cx = props.xScale(xAccessor(point).getTime());
+      if (Object.prototype.toString.call(point.x) === '[object Date]') {
+        cx = props.xScale(point.x.getTime());
       } else {
-        cx = props.xScale(xAccessor(point));
+        cx = props.xScale(point.x);
       }
-      if (Object.prototype.toString.call(yAccessor(point)) === '[object Date]') {
-        cy = props.yScale(yAccessor(point).getTime());
+      if (Object.prototype.toString.call(point.y) === '[object Date]') {
+        cy = props.yScale(point.y.getTime());
       } else {
-        cy = props.yScale(yAccessor(point));
+        cy = props.yScale(point.y);
       }
       circleFill = props.colors(props.colorAccessor(vnode, vnode.point.seriesIndex));
       
@@ -96,7 +96,7 @@ module.exports = React.createClass({
               cx={cx} cy={cy} 
               circleRadius={props.circleRadius}
               onMouseOver={props.onMouseOver}
-              dataPoint={{xValue: xAccessor(point), yValue: yAccessor(point), seriesName: vnode.point.series.name}}
+              dataPoint={{xValue: point.x, yValue: point.y, seriesName: vnode.point.series.name}}
           />
       );
     }.bind(this));
