@@ -53,7 +53,20 @@ module.exports = React.createClass({
     var allValues = flattenedData.allValues,
         xValues = flattenedData.xValues,
         yValues = flattenedData.yValues;
-    var scales = this._calculateScales(innerWidth, innerHeight, xValues, yValues);
+
+    var scales = {};
+
+    if (typeof props.xScale === 'function') {
+      scales.xScale = props.xScale(innerWidth, xValues);
+    } else {
+      scales.xScale = this._calculateScales(innerWidth, 0, xValues, []).xScale;
+    }
+
+    if (typeof props.yScale === 'function') {
+      scales.yScale = props.yScale(innerHeight, yValues);
+    } else {
+      scales.yScale = this._calculateScales(0, innerHeight, [], yValues).yScale;
+    }
 
     return (
       <span onMouseLeave={this.onMouseLeave}>
