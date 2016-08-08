@@ -24,6 +24,14 @@ module.exports = React.createClass({
     };
   },
 
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.fill !== this.props.fill) {
+          this.setState({
+              fill: nextProps.fill
+          });
+      }
+  },
+
   render() {
     var props = this.props;
 
